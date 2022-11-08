@@ -1,0 +1,14 @@
+.meteor-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 25px;
+  margin-top: 50px;
+  padding: 20px;
+  justify-content: center;
+}
+
+
+.meteor-amount {
+  font-weight: bold;
+  font-size: 18px;;
+}

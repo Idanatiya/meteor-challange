@@ -1,21 +1,18 @@
-import { Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import ThemeProvider from './store/ThemeProvider';
-
-import About from './views/About';
-import Home from './views/Home';
-import Layout from './views/Layout';
+import TheSidebar from '@/layout/TheSidebar';
+import MeteorPage from '@/pages/MeteorPage';
 
 function App() {
   return (
-    <ThemeProvider>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-        </Route>
-      </Routes>
-    </ThemeProvider>
+    <>
+      <main className="main-container">
+        <TheSidebar />
+        <MeteorPage />
+      </main>
+      <ToastContainer />
+    </>
   );
 }
 

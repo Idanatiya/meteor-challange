@@ -1,0 +1,16 @@
+.container {
+  justify-content: center;
+  margin-left: 30px;
+  width: 100%;
+  
+}
+
+.mass-input {
+  border: 2px solid rgb(232, 232, 232);
+  padding: 9px 13px;
+  width: 400px;
+  border-radius: 5px;
+  &:focus-within {
+    border: 2px solid #6f7eea;
+  }
+}
