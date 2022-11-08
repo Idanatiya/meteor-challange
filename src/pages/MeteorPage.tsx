@@ -12,6 +12,7 @@ import { formateDate, isNumber } from '@/utils';
 
 function MeteorPage() {
   const [meteors, setMeteors] = React.useState<Meteor[]>([]);
+  const [test, setTest] = React.useState('');
   const [meteorsLanded, setMeteorsLanded] = React.useState<Meteor[]>([]);
   const [year, setYear] = React.useState('');
   const [mass, setMass] = React.useState('');
