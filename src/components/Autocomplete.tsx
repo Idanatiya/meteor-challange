@@ -6,51 +6,56 @@ import useOnClickOutside from '@/hooks/useClickOutside';
 import useToggle from '@/hooks/useToggle';
 
 import './Autocomplete.scoped.scss';
-import { isNumber } from '@/utils';
+import { Option } from '@/types';
 
 interface Props {
-  options: string[];
-  onHandleSelect: (option: string) => void;
-  value: string;
-  setValue: (value: string) => void;
+  options: Option[];
+  onHandleSelect: (value: number) => void;
+  selectedYear: number | null;
 }
 
-function Authocomplete({ options, onHandleSelect, value, setValue }: Props) {
+function Authocomplete({ options, onHandleSelect, selectedYear }: Props) {
   const [isShown, toggleIsShown, setIsShown] = useToggle();
   const divRef = React.useRef<HTMLInputElement>(null);
+  const [year, setYear] = React.useState('');
+
+  React.useEffect(() => {
+    if (selectedYear) {
+      setYear(selectedYear.toString());
+    }
+  }, [selectedYear]);
 
   useOnClickOutside(divRef, () => {
     setIsShown(false);
   });
 
   const filteredOptions = React.useMemo(
-    () => options.filter((option) => option.startsWith(value)),
-    [options, value]
+    () => options.filter((option) => option.value.toString().startsWith(year)),
+    [year, options]
   );
 
   const onHandleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = ev.target.value.trim();
-    const isValid = isNumber(inputValue);
-    if (!isValid && inputValue) {
-      toast.error('Only Numbers allowed, Try again!');
+    const inputValue = ev.target.valueAsNumber;
+    if (Number.isNaN(inputValue) && inputValue) {
       return;
     }
-    setValue(inputValue);
+    setYear(inputValue.toString());
   };
 
-  const onOptionSelect = (option: string) => {
-    onHandleSelect(option);
-    setValue(option);
+  const onOptionSelect = (option: Option) => {
+    onHandleSelect(option.value);
+    setYear(option.value.toString());
     toggleIsShown();
   };
   return (
     <section className="root" ref={divRef}>
       <section className="search-container">
         <input
+          type="number"
           onChange={onHandleChange}
           placeholder="Enter Year To Start The Search!"
           className="input"
-          value={value}
+          value={year}
           onClick={() => setIsShown(true)}
         />
         <FaSearch className="search-icon" />
@@ -60,12 +65,12 @@ function Authocomplete({ options, onHandleSelect, value, setValue }: Props) {
           {filteredOptions.map((option) => (
             <div
               role="button"
-              key={option}
+              key={option.key}
               className="option-item"
               onClick={() => onOptionSelect(option)}
               tabIndex={0}
             >
-              {option}
+              {option.value.toString()}
             </div>
           ))}
         </section>

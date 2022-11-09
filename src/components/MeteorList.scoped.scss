@@ -12,3 +12,13 @@
   font-weight: bold;
   font-size: 18px;;
 }
+
+.mass-input {
+  border: 2px solid rgb(232, 232, 232);
+  padding: 9px 13px;
+  width: 400px;
+  border-radius: 5px;
+  &:focus-within {
+    border: 2px solid #6f7eea;
+  }
+}
