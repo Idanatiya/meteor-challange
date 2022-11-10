@@ -25,7 +25,9 @@ function MeteorList({ meteors, selectedMeteorYear, setMeteorYear }: Props) {
   }, [meteors]);
 
   const filteredMeteorsMass = React.useMemo(() => {
-    if (!currMeteorMass) return meteorsByYear[selectedMeteorYear] ?? [];
+    if (!currMeteorMass) {
+      return meteorsByYear[selectedMeteorYear];
+    }
 
     const largerMassMeteors = meteorsByYear[selectedMeteorYear].filter(
       (meteor) => meteor.mass > +currMeteorMass

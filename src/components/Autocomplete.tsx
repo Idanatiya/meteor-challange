@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { FaSearch } from 'react-icons/fa';
-import { toast } from 'react-toastify';
 
 import useOnClickOutside from '@/hooks/useClickOutside';
 import useToggle from '@/hooks/useToggle';
@@ -36,7 +35,8 @@ function Authocomplete({ options, onHandleSelect, selectedYear }: Props) {
 
   const onHandleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = ev.target.valueAsNumber;
-    if (Number.isNaN(inputValue) && inputValue) {
+    if (Number.isNaN(inputValue)) {
+      setYear('');
       return;
     }
     setYear(inputValue.toString());
